@@ -18,6 +18,7 @@ def merge_lora(base_model_path, adapter_path, output_path):
     model = PeftModel.from_pretrained(base_model, adapter_path)
 
     print("Merging weights...")
+    model = model.to(torch.bfloat16)  # đồng nhất dtype
     model = model.merge_and_unload()
 
     print(f"Saving merged model to {output_path}...")
